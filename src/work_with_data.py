@@ -3,10 +3,10 @@ import os
 import httpx
 from playhouse.db_url import connect
 
-db = connect(os.environ.get('DB_CONNECTION_STRING'))
-login = os.environ.get('LOGIN')
-password = os.environ.get('PASSWORD')
-url = os.environ.get('URL')
+db = connect(os.environ['DB_CONNECTION_STRING'])
+login = os.environ['LOGIN']
+password = os.environ['PASSWORD']
+url = os.environ['URL']
 
 cursor = db.cursor()
 
@@ -21,4 +21,4 @@ def delete_data(date):
 
 
 def rebuild_report():
-    httpx.put(f'{url}', data={'collect_history': 'false'}, auth=(f'{login}', f'{password}'))
+    httpx.put(f'{url}/report/build', data={'collect_history': 'false'}, auth=(login, password))
